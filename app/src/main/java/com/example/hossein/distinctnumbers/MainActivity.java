@@ -1,15 +1,21 @@
 package com.example.hossein.distinctnumbers;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,12 +65,31 @@ public class MainActivity extends AppCompatActivity {
         addNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!numbers.contains(numberET.getText().toString()) && !numberET.getText().toString().equals("")) {
-                    numbers.add(numbers.size(), numberET.getText().toString());
+
+                String phoneNumber = numberET.getText().toString();
+
+                if (!numbers.contains(phoneNumber) && !phoneNumber.equals("")) {
+
+                    if (isIrancell(phoneNumber))
+                        numbers.add(numbers.size(), phoneNumber);
+                    else
+                        numbers.add(phoneNumber);
+
                 }
-                Log.i("jalil", String.valueOf(numbers.size()));
+
+                numberET.setText("");
+
             }
         });
+
+    }
+
+    private boolean isIrancell(String string) {
+
+        if (string.substring(0, 3).equals("090") || string.substring(0, 3).equals("093"))
+            return true;
+        else
+            return false;
 
     }
 
@@ -73,10 +98,46 @@ public class MainActivity extends AppCompatActivity {
         clearData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numbers.clear();
-                MyPreferenceManager.getInstance(MainActivity.this).putNumbers(numbers);
+                confirmDatabaseClearance();
             }
         });
+
+    }
+
+    private void confirmDatabaseClearance() {
+
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/sans_normal.ttf");
+        TextView textView1 = null;
+
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Attention")
+                .setMessage("تمامی شماره ها رو پاک کنم؟")
+                .setPositiveButton("آره", null)
+                .setNegativeButton("نه، بیخیال", null)
+                .show();
+
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyPreferenceManager.getInstance(MainActivity.this).clearNumbers();
+                numbers.clear();
+                Toast.makeText(MainActivity.this, "همه شماره ها پاک شد!", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        textView1 = (TextView) dialog.findViewById(android.R.id.message);
+        textView1.setTypeface(typeface);
+
+        TextView textView2 = (TextView) dialog.findViewById(android.R.id.message);
+        textView2.setTypeface(typeface);
+
+        Button btn1 = (Button) dialog.findViewById(android.R.id.button1);
+        btn1.setTypeface(typeface);
+
+        Button btn2 = (Button) dialog.findViewById(android.R.id.button2);
+        btn2.setTypeface(typeface);
 
     }
 

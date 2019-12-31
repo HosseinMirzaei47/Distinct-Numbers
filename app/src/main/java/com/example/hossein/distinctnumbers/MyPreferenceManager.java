@@ -72,4 +72,9 @@ public class MyPreferenceManager {
 
     }
 
+    public void clearNumbers() {
+        editor.clear();
+        editor.apply();
+    }
+
 }

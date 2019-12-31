@@ -38,8 +38,10 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.ViewHold
 
         for (Integer element :
                 selectedNumbers) {
-            if (position == element)
+            if (position == element) {
+                parent.checkIcon.setVisibility(View.VISIBLE);
                 parent.numberTextView.setTextColor(Color.parseColor("#008080"));
+            }
         }
 
     }
