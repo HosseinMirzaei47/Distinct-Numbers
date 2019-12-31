@@ -33,7 +33,7 @@ public class MyPreferenceManager {
     public void putNumbers(ArrayList<String> numbers) {
 
         Gson gson = new Gson();
-        String strNumbers = gson.toJson(numbers, IntegerArrayModel.class);
+        String strNumbers = gson.toJson(numbers, StringArrayModel.class);
         editor.putString("Numbers", strNumbers);
         editor.apply();
 
@@ -45,9 +45,30 @@ public class MyPreferenceManager {
         String numbers = sharedPreferences.getString("Numbers", null);
 
         if (numbers == null)
+            return new StringArrayModel();
+
+        return gson.fromJson(numbers, StringArrayModel.class);
+
+    }
+
+    public ArrayList<Integer> getSelectedNumbers() {
+
+        Gson gson = new Gson();
+        String numbers = sharedPreferences.getString("selectedNumbers", null);
+
+        if (numbers == null)
             return new IntegerArrayModel();
 
         return gson.fromJson(numbers, IntegerArrayModel.class);
+
+    }
+
+    public void putSelectedNumbers(ArrayList<Integer> numbers) {
+
+        Gson gson = new Gson();
+        String strNumbers = gson.toJson(numbers, IntegerArrayModel.class);
+        editor.putString("selectedNumbers", strNumbers);
+        editor.apply();
 
     }
 

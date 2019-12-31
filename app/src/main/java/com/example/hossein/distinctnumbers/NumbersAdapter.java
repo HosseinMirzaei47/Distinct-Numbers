@@ -1,5 +1,7 @@
 package com.example.hossein.distinctnumbers;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,9 +16,13 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.ViewHold
 
     private ArrayList<String> numbers;
     private ItemClickListener listener;
+    private Context context;
 
-    public NumbersAdapter(ArrayList<String> numbers) {
+    private ArrayList<Integer> selectedNumbers = new ArrayList<>(MyPreferenceManager.getInstance(context).getSelectedNumbers());
+
+    public NumbersAdapter(ArrayList<String> numbers, Context context) {
         this.numbers = numbers;
+        this.context = context;
     }
 
     @NonNull
@@ -29,6 +35,13 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder parent, int position) {
         parent.numberTextView.setText(numbers.get(position));
+
+        for (Integer element :
+                selectedNumbers) {
+            if (position == element)
+                parent.numberTextView.setTextColor(Color.parseColor("#008080"));
+        }
+
     }
 
     @Override

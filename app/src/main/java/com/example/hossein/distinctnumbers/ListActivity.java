@@ -1,6 +1,7 @@
 package com.example.hossein.distinctnumbers;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ public class ListActivity extends AppCompatActivity implements NumbersAdapter.It
 
     private static final String MESSAGE = "با سلام خد مت شما.";
     private ArrayList<String> numbers = new ArrayList<>();
+    private ArrayList<Integer> selectedNumbers = MyPreferenceManager.getInstance(this).getSelectedNumbers();
 
     private RecyclerView recycler;
     private NumbersAdapter adapter;
@@ -29,7 +31,7 @@ public class ListActivity extends AppCompatActivity implements NumbersAdapter.It
         getExtras();
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new NumbersAdapter(numbers);
+        adapter = new NumbersAdapter(numbers, this);
         adapter.setClickListener(this);
         recycler.setAdapter(adapter);
 
@@ -41,8 +43,16 @@ public class ListActivity extends AppCompatActivity implements NumbersAdapter.It
 
     @Override
     public void onItemClick(View view, int position) {
+
+        openSMSandChangeColor(position);
+
+    }
+
+    private void openSMSandChangeColor(int position) {
         String phoneNumber = ((TextView) Objects.requireNonNull(recycler.findViewHolderForAdapterPosition(position)).itemView.findViewById(R.id.item)).getText().toString();
-        /*Objects.requireNonNull(recycler.findViewHolderForAdapterPosition(position)).itemView.findViewById(R.id.checkIcon).setVisibility(View.VISIBLE);*/
+        selectedNumbers.add(position);
+        ((TextView) Objects.requireNonNull(recycler.findViewHolderForAdapterPosition(position)).itemView.findViewById(R.id.item)).setTextColor(Color.parseColor("#008080"));
+        MyPreferenceManager.getInstance(this).putSelectedNumbers(selectedNumbers);
         sendMessage(phoneNumber);
     }
 

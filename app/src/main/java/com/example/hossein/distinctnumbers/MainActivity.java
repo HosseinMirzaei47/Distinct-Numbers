@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!numbers.contains(numberET.getText().toString()) && !numberET.getText().toString().equals("")) {
-                    numbers.add(numberET.getText().toString());
+                    numbers.add(numbers.size(), numberET.getText().toString());
                 }
                 Log.i("jalil", String.valueOf(numbers.size()));
             }
@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        numberET.setText("");
         numbers.clear();
         numbers = MyPreferenceManager.getInstance(this).getNumbers();
         super.onResume();
