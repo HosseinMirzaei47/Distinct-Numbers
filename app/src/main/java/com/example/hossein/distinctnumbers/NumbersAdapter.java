@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.ViewHold
     private ItemClickListener listener;
     private Context context;
 
-    private ArrayList<Integer> selectedNumbers = new ArrayList<>(MyPreferenceManager.getInstance(context).getSelectedNumbers());
+    private ArrayList<String> selectedNumbers = new ArrayList<>(MyPreferenceManager.getInstance(context).getSelectedNumbers());
 
     public NumbersAdapter(ArrayList<String> numbers, Context context) {
         this.numbers = numbers;
@@ -36,13 +37,13 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder parent, int position) {
         parent.numberTextView.setText(numbers.get(position));
 
-        for (Integer element :
+        /*for (Integer element :
                 selectedNumbers) {
             if (position == element) {
                 parent.checkIcon.setVisibility(View.VISIBLE);
-                parent.numberTextView.setTextColor(Color.parseColor("#008080"));
+                parent.numberTextView.setTextColor(Color.parseColor("#58b747"));
             }
-        }
+        }*/
 
     }
 

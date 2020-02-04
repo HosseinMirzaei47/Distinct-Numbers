@@ -3,6 +3,8 @@ package com.example.hossein.distinctnumbers;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.hossein.distinctnumbers.Models.IntegerArrayModel;
+import com.example.hossein.distinctnumbers.Models.StringArrayModel;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -51,22 +53,22 @@ public class MyPreferenceManager {
 
     }
 
-    public ArrayList<Integer> getSelectedNumbers() {
+    public ArrayList<String> getSelectedNumbers() {
 
         Gson gson = new Gson();
         String numbers = sharedPreferences.getString("selectedNumbers", null);
 
         if (numbers == null)
-            return new IntegerArrayModel();
+            return new StringArrayModel();
 
-        return gson.fromJson(numbers, IntegerArrayModel.class);
+        return gson.fromJson(numbers, StringArrayModel.class);
 
     }
 
-    public void putSelectedNumbers(ArrayList<Integer> numbers) {
+    public void putSelectedNumbers(ArrayList<String> numbers) {
 
         Gson gson = new Gson();
-        String strNumbers = gson.toJson(numbers, IntegerArrayModel.class);
+        String strNumbers = gson.toJson(numbers, StringArrayModel.class);
         editor.putString("selectedNumbers", strNumbers);
         editor.apply();
 

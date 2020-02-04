@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_marginStart="75dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="75dp"
         android:background="@drawable/title_back"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sans_bold"
-        android:text="شماره ها"
+        android:text="شماره"
         android:textColor="@color/global"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -67,26 +67,40 @@
         android:id="@+id/numbersList"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="70dp"
         android:background="@drawable/prior_button"
         android:fontFamily="@font/sans_bold"
         android:text="لیست شماره ها"
         android:textColor="@color/global"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/clearData"
+        app:layout_constraintLeft_toRightOf="@+id/sentList"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/sentList"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/prior_button"
+        android:fontFamily="@font/sans_bold"
+        android:text="ارسال شده ها"
+        android:textColor="@color/global"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/numbersList" />
 
     <Button
         android:id="@+id/clearData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="50dp"
         android:background="@color/global"
         android:fontFamily="@font/sans_normal"
         android:text="پاک کردن همه"
         android:textColor="@color/green"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/numbersList" />
+        app:layout_constraintLeft_toLeftOf="@+id/sentList"
+        app:layout_constraintRight_toRightOf="@+id/sentList"
+        app:layout_constraintTop_toBottomOf="@+id/sentList" />
 
 </android.support.constraint.ConstraintLayout>

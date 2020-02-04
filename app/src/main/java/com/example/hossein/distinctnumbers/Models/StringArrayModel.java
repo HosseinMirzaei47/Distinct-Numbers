@@ -1,4 +1,4 @@
-package com.example.hossein.distinctnumbers;
+package com.example.hossein.distinctnumbers.Models;
 
 import java.util.ArrayList;
 

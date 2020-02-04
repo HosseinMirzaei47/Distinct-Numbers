@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private Button addNumber;
     private Button clearData;
     private Button numbersList;
+    private Button sentNumbersList;
     private EditText numberET;
 
     private ArrayList<String> numbers = new ArrayList<>();
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showList() {
+
         numbersList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,6 +60,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        sentNumbersList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, SentNumbersActivity.class);
+                MainActivity.this.startActivity(intent);
+
+            }
+        });
+
     }
 
     private void addToList() {
@@ -70,12 +83,23 @@ public class MainActivity extends AppCompatActivity {
 
                 if (!numbers.contains(phoneNumber) && !phoneNumber.equals("")) {
 
-                    if (isIrancell(phoneNumber))
+                    if (isIrancell(phoneNumber)) {
                         numbers.add(numbers.size(), phoneNumber);
-                    else
-                        numbers.add(phoneNumber);
+                        Log.i("jalil", "if");
+                    } else {
+                        Log.i("jalil", "else");
+                        numbers.add(0, phoneNumber);
+                    }
 
                 }
+
+                MyPreferenceManager.getInstance(MainActivity.this).putNumbers(numbers);
+
+                for (String elm :
+                        numbers) {
+                    Log.i("jalil", elm);
+                }
+                Log.e("jalil", "__________________________________________");
 
                 numberET.setText("");
 
@@ -86,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isIrancell(String string) {
 
-        if (string.substring(0, 3).equals("090") || string.substring(0, 3).equals("093"))
+        if (string.startsWith("090") || string.startsWith("093"))
             return true;
         else
             return false;
@@ -153,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
         addNumber = findViewById(R.id.addNumber);
         numbersList = findViewById(R.id.numbersList);
+        sentNumbersList = findViewById(R.id.sentList);
         clearData = findViewById(R.id.clearData);
         numberET = findViewById(R.id.editText);
 

@@ -18,11 +18,12 @@ import java.util.Objects;
 
 public class ListActivity extends AppCompatActivity implements NumbersAdapter.ItemClickListener {
 
-    private ArrayList<String> numbers = new ArrayList<>();
-    private ArrayList<Integer> selectedNumbers = MyPreferenceManager.getInstance(this).getSelectedNumbers();
+    private ArrayList<String> numbers = MyPreferenceManager.getInstance(this).getNumbers();
+    private ArrayList<String> selectedNumbers = MyPreferenceManager.getInstance(this).getSelectedNumbers();
 
     private RecyclerView recycler;
     private NumbersAdapter adapter;
+    private TextView noNumbers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,9 @@ public class ListActivity extends AppCompatActivity implements NumbersAdapter.It
         setContentView(R.layout.activity_list);
         findViews();
         getExtras();
+
+        if (numbers.size() <= 0)
+            noNumbers.setVisibility(View.VISIBLE);
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
         adapter = new NumbersAdapter(numbers, this);
@@ -51,14 +55,23 @@ public class ListActivity extends AppCompatActivity implements NumbersAdapter.It
 
     private void openSMSandChangeColor(int position) {
 
-        selectedNumbers.add(position);
-        ((TextView) Objects.requireNonNull(recycler.findViewHolderForAdapterPosition(position)).itemView.findViewById(R.id.item)).setTextColor(Color.parseColor("#008080"));
-        Objects.requireNonNull(recycler.findViewHolderForAdapterPosition(position)).itemView.findViewById(R.id.checkIcon).setVisibility(View.VISIBLE);
-        MyPreferenceManager.getInstance(this).putSelectedNumbers(selectedNumbers);
+        /*((TextView) Objects.requireNonNull(recycler.findViewHolderForAdapterPosition(position)).itemView.findViewById(R.id.item)).setTextColor(Color.parseColor("#008080"));
+        Objects.requireNonNull(recycler.findViewHolderForAdapterPosition(position)).itemView.findViewById(R.id.checkIcon).setVisibility(View.VISIBLE);*/
+
         String phoneNumber = ((TextView) Objects.requireNonNull(recycler.findViewHolderForAdapterPosition(position)).itemView.findViewById(R.id.item)).getText().toString();
         sendMessage(phoneNumber);
-        Collections.swap(numbers, position, numbers.size() - 1);
-        adapter.notifyItemMoved(position, numbers.size() - 1);
+
+        selectedNumbers.add(phoneNumber);
+        MyPreferenceManager.getInstance(this).putSelectedNumbers(selectedNumbers);
+
+        numbers.remove(position);
+        adapter.notifyDataSetChanged();
+
+        /*Collections.swap(numbers, position, numbers.size() - 1);
+        adapter.notifyItemMoved(position, numbers.size() - 1);*/
+
+        MyPreferenceManager.getInstance(this).putNumbers(numbers);
+
     }
 
     private void sendMessage(String phoneNumber) {
@@ -81,6 +94,7 @@ public class ListActivity extends AppCompatActivity implements NumbersAdapter.It
 
     private void findViews() {
         recycler = findViewById(R.id.recyclerView);
+        noNumbers = findViewById(R.id.noEntries);
     }
 
 }
