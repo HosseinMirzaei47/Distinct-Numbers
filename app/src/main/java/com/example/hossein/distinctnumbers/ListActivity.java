@@ -77,17 +77,8 @@ public class ListActivity extends AppCompatActivity implements NumbersAdapter.It
     private void sendMessage(String phoneNumber) {
 
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + phoneNumber));
-        intent.putExtra("sms_body", "مشتری گرامی؛ با سلام و احترام\n" +
-                " افتخار داریم به اطلاع برسانیم به لطف خداوند مهربان و با حمایت شما بزرگواران جدیدترین،\n" +
-                " با دقت ترین و سریعترین دستگاه شستشوی تمام اتوماتیک انواع فرش در مشهد مقدس در۹۸/۱۰/۱۱ همزمان با ولادت با سعادت حضرت زینب(س) نصب و آماده بهره برداری شد.\n" +
-                "\n" +
-                "مجهز ، منظم ، متخصص\n" +
-                "\"بازدید از کارخانه برای عموم آزاد است.\"\n" +
-                "\n" +
-                "همواره معتقدیم شما شایسته دریافت بهترین خدمات بوده و هستید.\n" +
-                "قالیشویی گوهرشاد - میرزایی ۰۹۱۵۲۰۵۶۵۰۰\n" +
-                "تلفنهای تماس برای تمام نقاط شهر\n" +
-                "۳۸۸۴۸۵۸۲  ۳۵۱۳۱۲۳۴  ۳۶۶۱۱۲۴۸");
+        String sms = MyPreferenceManager.getInstance(this).getSms(this);
+        intent.putExtra("sms_body", sms);
         startActivity(intent);
 
     }

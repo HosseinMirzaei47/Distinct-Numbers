@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".ListActivity" />
         <activity android:name=".SentNumbersActivity" />
+        <activity android:name=".SmsActivity" />
     </application>
 
 </manifest>

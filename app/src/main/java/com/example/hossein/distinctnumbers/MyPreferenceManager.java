@@ -65,6 +65,23 @@ public class MyPreferenceManager {
 
     }
 
+    public void putSms(String sms) {
+
+        Gson gson = new Gson();
+        String text = gson.toJson(sms, String.class);
+        editor.putString("sms", sms);
+        editor.apply();
+
+    }
+
+    public String getSms(Context context) {
+
+        Gson gson = new Gson();
+        String sms = sharedPreferences.getString("sms", null);
+        return gson.fromJson(sms, String.class);
+
+    }
+
     public void putSelectedNumbers(ArrayList<String> numbers) {
 
         Gson gson = new Gson();

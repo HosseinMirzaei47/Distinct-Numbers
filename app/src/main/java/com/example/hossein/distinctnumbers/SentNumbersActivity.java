@@ -1,5 +1,7 @@
 package com.example.hossein.distinctnumbers;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -10,8 +12,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class SentNumbersActivity extends AppCompatActivity {
+public class SentNumbersActivity extends AppCompatActivity implements NumbersAdapter.ItemClickListener {
 
     private RecyclerView recyclerView;
     private NumbersAdapter adapter;
@@ -30,6 +33,7 @@ public class SentNumbersActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new NumbersAdapter(numbers, SentNumbersActivity.this);
+        adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
     }
@@ -39,6 +43,23 @@ public class SentNumbersActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
 
         noNumbers = findViewById(R.id.noEntries);
+
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
+        String phoneNumber = ((TextView) Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(position)).itemView.findViewById(R.id.item)).getText().toString();
+        sendMessage(phoneNumber);
+
+    }
+
+    private void sendMessage(String phoneNumber) {
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + phoneNumber));
+        String sms = MyPreferenceManager.getInstance(this).getSms(this);
+        intent.putExtra("sms_body", sms);
+        startActivity(intent);
 
     }
 

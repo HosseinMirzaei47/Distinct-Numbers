@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private Button clearData;
     private Button numbersList;
     private Button sentNumbersList;
+    private Button smsText;
     private EditText numberET;
 
     private ArrayList<String> numbers = new ArrayList<>();
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         showList();
 
         clearData();
+
+        showSmsText();
 
     }
 
@@ -66,6 +69,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(MainActivity.this, SentNumbersActivity.class);
+                MainActivity.this.startActivity(intent);
+
+            }
+        });
+
+    }
+
+    private void showSmsText() {
+
+        smsText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, SmsActivity.class);
                 MainActivity.this.startActivity(intent);
 
             }
@@ -180,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         sentNumbersList = findViewById(R.id.sentList);
         clearData = findViewById(R.id.clearData);
         numberET = findViewById(R.id.editText);
+        smsText = findViewById(R.id.smsTextButton);
 
     }
 

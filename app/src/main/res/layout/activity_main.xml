@@ -67,7 +67,7 @@
         android:id="@+id/numbersList"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="90dp"
         android:background="@drawable/prior_button"
         android:fontFamily="@font/sans_bold"
         android:text="لیست شماره ها"
@@ -80,7 +80,7 @@
         android:id="@+id/sentList"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="90dp"
         android:background="@drawable/prior_button"
         android:fontFamily="@font/sans_bold"
         android:text="ارسال شده ها"
@@ -94,13 +94,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="50dp"
         android:background="@color/global"
         android:fontFamily="@font/sans_normal"
         android:text="پاک کردن همه"
         android:textColor="@color/green"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/sentList"
         app:layout_constraintRight_toRightOf="@+id/sentList"
         app:layout_constraintTop_toBottomOf="@+id/sentList" />
+
+    <Button
+        android:id="@+id/smsTextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/global"
+        android:fontFamily="@font/sans_normal"
+        android:text="متن پیامک"
+        android:textColor="@color/green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/numbersList"
+        app:layout_constraintRight_toRightOf="@id/numbersList"
+        app:layout_constraintTop_toBottomOf="@id/numbersList" />
 
 </android.support.constraint.ConstraintLayout>
