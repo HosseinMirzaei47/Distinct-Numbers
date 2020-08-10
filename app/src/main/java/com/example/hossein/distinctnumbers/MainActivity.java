@@ -1,12 +1,10 @@
 package com.example.hossein.distinctnumbers;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.Typeface;
-import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -127,10 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isIrancell(String string) {
 
-        if (string.startsWith("090") || string.startsWith("093"))
-            return true;
-        else
-            return false;
+        return string.startsWith("090") || string.startsWith("093");
 
     }
 
@@ -148,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     private void confirmDatabaseClearance() {
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/sans_normal.ttf");
-        TextView textView1 = null;
+        TextView textView1;
 
         final AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Attention")
